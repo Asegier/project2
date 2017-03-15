@@ -1,5 +1,62 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+	title= Movite
+	h1 Welcome to Movite!
+	.row.container
+		.dropdown#movMenu
+			button#dropdownMenu1.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='true')
+				| Select Location
+				span.caret
+			ul.dropdown-menu(aria-labelledby='dropdownMenu1')
+				li.dropdown-header Hong Kong Island
+				li
+					a(href='#') Ap Lei Chau
+				li
+					a(href='#') Causeway Bay
+				li
+					a(href='#') Central
+				li
+					a(href='#') Cyberport
+				li.dropdown-header Kowloon
+				li
+					a(href='#') Diamond Hill
+				li
+					a(href='#') Kowloon Bay
+				li
+					a(href='#') Kwun Tong
+				li
+					a(href='#') Mongkok
+				li
+					a(href='#') Shatin
+				li
+					a(href='#') Tsim Sha Tsui
+				li
+					a(href='#') Tuen Mun
+				li
+					a(href='#') Yau Ma Tei
+				li.dropdown-header New Territories
+				li
+					a(href='#') Fanling
+				li
+					a(href='#') Kowloon Tong (Festival walk)
+				li
+					a(href='#') Tseung Kwan O
+				li.divider(role='separator')
+				li
+					a(href='#') I am Retarded I need Help
+		.dropdown#locMenu
+			button#dropdownMenu1.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='true')
+				| Select Movie
+				span.caret
+			ul.dropdown-menu#list(aria-labelledby='dropdownMenu1')
+				li
+					a(href='#') Action
+				li
+					a(href='#') Another action
+				li
+					a(href='#') Something else here
+				li.divider(role='separator')
+				li
+					a(href='#') I am Retarded I need Help
+

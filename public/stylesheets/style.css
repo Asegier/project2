@@ -1,8 +1,50 @@
+h1{
+	text-align: center;
+	padding-bottom: 10%;
+}
+
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	padding: 50px;
+	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	background: black;
+	color: grey;
+
 }
 
 a {
-  color: #00B7FF;
+	color: #00B7FF;
+}
+
+.container {
+/*	position: relative;*/
+}
+
+#locMenu{
+	position: absolute;
+	left: 60%;
+	
+}
+
+#movMenu{
+	position: absolute;
+	left: 30%;
+}
+
+#dropdownMenu1{
+	background: grey;
+	color: white;
+}
+
+.dropdown-menu{
+	background: grey;
+}
+
+.dropdown-header{
+	font-size: 15px;
+	font-weight: 900;
+	color: black;
+}
+
+li{
+	font-size: 13px;
 }

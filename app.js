@@ -10,8 +10,13 @@ var fs = require('fs');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var scraper = require('./utils/scraper');
 
 var app = express();
+
+// Connect with MongoDB
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/project_2');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -27,6 +32,123 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+
+var Cinema = require('./models/cinemas');
+var getUACinemas = function (url){
+	var totalcinemas = []
+	request(url, function(error, response, html){s
+		console.log("REQUEST")
+		if(!error){
+			var C = cheerio.load(html);
+
+			var title, release, rating;
+			var json = { title : ""};
+			C('.cinemas').filter(function(){
+				
+				/*
+				var data = C(this);
+				title = data.children().children().text()
+				json.title = title;
+				
+				console.log("title", data.children().children());
+				
+				*/
+				
+				var data = C('.cinemas ul li');
+				for(i = 0; i < C(data).length; i++ ){
+					var cinema = new Cinema();
+					cinema.name = C(data[i]).text();
+					cinema.save();
+					console.log(C(data[i]).text());
+				}
+//				console.log(C(data).length)
+				
+				totalcinemas.push(json.title)
+			})
+		}
+//		console.log(totalcinemas)
+			var titlesArr = []
+			for(i = 0; i < totalcinemas.length; i++){
+				if(!titlesArr.includes(totalcinemas[i])){
+					titlesArr.push(totalcinemas[i])
+				}
+			}
+//		console.log(titlesArr)
+			console.log('CINEMASSSS');
+//		})
+	})
+}
+
+//getUACinemas('http://www.uacinemas.com.hk/eng/main/HomePage')
+getUACinemas('http://www4.mclcinema.com/index.aspx?visLang=2')
+
+
+var express = require('express');
+var router = express.Router();
+
+var Movie = require('./models/movies')
+var getUAMovies = function (url){
+	var totaltitles = []
+	request(url, function(error, response, html){
+		console.log("REQUEST")
+		if(!error){
+			var C = cheerio.load(html);
+
+			var title, release, rating;
+			var json = { title : ""};
+			C('.center_info').filter(function(){
+				var data = C(this);
+				title = data.children().first().text();
+
+				json.title = title;
+				totaltitles.push(json.title)
+				
+			})
+		}
+		console.log(totaltitles)
+			var titlesArr = []
+			for(i = 0; i < totaltitles.length; i++){
+				if(!titlesArr.includes(totaltitles[i])){
+					titlesArr.push(totaltitles[i])
+					var movie = new Movie();
+					movie.name = totaltitles[i]
+					movie.save()
+				}
+			}
+		console.log(titlesArr)
+			console.log('File successfully written! - Check your project directory for the output.json file');
+//		})
+	})
+}
+
+const UAcwb = 'https://www.uacinemas.com.hk/eng/cinemas/Cinemas?id=4';
+const UAiMaxmk = 'http://www.uacinemas.com.hk/eng/cinemas/Cinemas?id=24';
+const UAiMaxklnbay = 'http://www.uacinemas.com.hk/eng/cinemas/Cinemas?id=15';
+const UAiMaxtst = 'http://www.uacinemas.com.hk/eng/cinemas/Cinemas?id=19';
+const UAPCtst = 'http://www.uacinemas.com.hk/eng/cinemas/Cinemas?id=25';
+const UAmk = 'http://www.uacinemas.com.hk/eng/cinemas/Cinemas?id=23';
+const UAtst = 'http://www.uacinemas.com.hk/eng/cinemas/Cinemas?id=18';
+const UAklnbay = 'http://www.uacinemas.com.hk/eng/cinemas/Cinemas?id=14';
+const UAtuenmun = 'http://www.uacinemas.com.hk/eng/cinemas/Cinemas?id=17';
+const UAshatin = 'http://www.uacinemas.com.hk/eng/cinemas/Cinemas?id=1';
+const UAairport = 'http://www.uacinemas.com.hk/eng/cinemas/Cinemas?id=22'
+//const MCL = ;
+//const BROAD = ;
+
+/* Cinema & Movies
+Feedback all the Cinemas in a given location
+*/
+
+app.get('/scrape', function(req, res){
+
+	getUAMovies(UAcwb)
+	
+	res.send('Check your console!')
+
+})
+
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -46,56 +168,4 @@ app.use(function(err, req, res, next) {
 	res.render('error');
 });
 
-app.get('/scrape', function(req, res){
-	// The URL we will scrape from - in our example Anchorman 2.
-
-	url = 'https://www.uacinemas.com.hk/eng/cinemas/Cinemas?id=4';
-
-	// The structure of our request call
-	// The first parameter is our URL
-	// The callback function takes 3 parameters, an error, response status code and the html
-
-	request(url, function(error, response, html){
-
-		// First we'll check to make sure no errors occurred when making the request
-
-		if(!error){
-			// Next, we'll utilize the cheerio library on the returned html which will essentially give us jQuery functionality
-
-			var CHEERS = cheerio.load(html);
-
-			// Finally, we'll define the variables we're going to capture
-
-			var title, release, rating;
-			var json = { title : "", release : "", rating : ""};
-
-			CHEERS('.center_info').filter(function(){
-
-				// Let's store the data we filter into a variable so we can easily see what's going on.
-
-				var data = CHEERS(this);
-
-				// In examining the DOM we notice that the title rests within the first child element of the header tag. 
-				// Utilizing jQuery we can easily navigate and get the text by writing the following code:
-
-				title = data.children().first().text();
-				console.log(title);
-
-				// Once we have our title, we'll store it to the our json object.
-
-				json.title = title;
-			})
-		}
-	})
-	fs.writeFile('output.json', JSON.stringify(json, null, 4), function(err){
-
-		console.log('File successfully written! - Check your project directory for the output.json file');
-
-	});
-})
-
-app.listen('8081')
-console.log('Magic happens on port 8081');
-exports = module.exports = app;
-
-//		module.exports = app;
+module.exports = app;
