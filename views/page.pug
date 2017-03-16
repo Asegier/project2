@@ -1,0 +1,15 @@
+extends layout
+
+block content
+	.row.title
+		.col-md-1
+		.col-md-5 .col-md-5
+		.col-md-5 .col-md-5
+		.col-md-1
+	.row.movie
+		.col-md-1 hi
+	
+	script(type="text/custom-tpl", id="cinemaTemplate")
+		.cinema
+			h1 {{title}}
+			p {description}

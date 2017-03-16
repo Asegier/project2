@@ -2,7 +2,7 @@ extends layout
 
 block content
 	title= Movite
-	h1 Welcome to Movite!
+	h1=title
 	.row.container
 		.dropdown#movMenu
 			button#dropdownMenu1.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='true')
@@ -11,9 +11,9 @@ block content
 			ul.dropdown-menu(aria-labelledby='dropdownMenu1')
 				li.dropdown-header Hong Kong Island
 				li
-					a(href='#') Ap Lei Chau
+					a(href='/page.pug') Ap Lei Chau
 				li
-					a(href='#') Causeway Bay
+					a(href='/page') Causeway Bay
 				li
 					a(href='#') Central
 				li
@@ -44,7 +44,7 @@ block content
 					a(href='#') Tseung Kwan O
 				li.divider(role='separator')
 				li
-					a(href='#') I am Retarded I need Help
+					a(href='/toobad') I am Retarded I need Help
 		.dropdown#locMenu
 			button#dropdownMenu1.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='true')
 				| Select Movie
