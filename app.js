@@ -7,6 +7,7 @@ var bodyParser 		= require('body-parser');
 var request 		= require('request');
 var cheerio 		= require('cheerio');
 var fs 				= require('fs');
+var movieController	= require('./controllers/movieController')
 
 var index 			= require('./routes/index');
 var users 			= require('./routes/users');
@@ -33,7 +34,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
-app.use('/page', movieGrabber)
+app.use('/page', movieGrabber);
+app.use('/getMovies', movieController);
+
+
 
 
 //	scraper.getMCLCinemas('http://www4.mclcinema.com/MCLWebAPI2/GetCinemaDetails.aspx?l=2')
@@ -59,15 +63,35 @@ const UAshatin 		= 'http://www.uacinemas.com.hk/eng/cinemas/Cinemas?id=1';
 const UAairport 	= 'http://www.uacinemas.com.hk/eng/cinemas/Cinemas?id=22';
 //const MCL 		= ;
 //const BROAD 		= ;
-debugger;
+
+const UA = "UA";
+const MCL = "MCL";
+const Broadway = "Broadway";
+
+const cwb = "Causeway Bay";
+const mk = "Mongkok";
+const kowBay = "Kowloon Bay";
+const tst = "Tsim Sha Tsui";
+const tuenmun = "Tuen Mun";
+const shatin = "Shatin";
+const airport = "Airport";
+
 /* Cinema & Movies
 Feedback all the Cinemas in a given location
 */
-
 app.get('/scrape', function(req, res){
 
-	scraper.getUAMovies(UAcwb);
-	scraper.getUAMovies(UAiMaxmk);
+	scraper.getUAMovies(UAcwb, cwb, UA);
+	scraper.getUAMovies(UAiMaxmk, mk, UA);
+	scraper.getUAMovies(UAiMaxklnbay, kowBay, UA);
+	scraper.getUAMovies(UAiMaxtst, tst, UA);
+	scraper.getUAMovies(UAPCtst, tst, UA);
+	scraper.getUAMovies(UAmk, mk, UA);
+	scraper.getUAMovies(UAtst, tst, UA);
+	scraper.getUAMovies(UAklnbay, kowBay, UA);
+	scraper.getUAMovies(UAtuenmun, tuenmun, UA);
+	scraper.getUAMovies(UAshatin, shatin, UA);
+	scraper.getUAMovies(UAairport, airport, UA);
 	
 	
 	res.send('Check your console!')

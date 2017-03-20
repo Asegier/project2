@@ -61,7 +61,7 @@ exports.getMCLCinemas = function (url){
 }
 
 
-exports.getUAMovies = function (url){
+exports.getUAMovies = function (url, district, brand){
 	var totaltitles = []
 	request(url, function(error, response, html){
 		console.log("REQUEST")
@@ -73,11 +73,12 @@ exports.getUAMovies = function (url){
 			C('.center_info').filter(function(){
 				var data = C(this);
 				title = data.children().first().text();
-
 				json.title = title;
 				totaltitles.push(json.title)
 				
 			})
+		} else {
+			return error
 		}
 		console.log(totaltitles)
 			var titlesArr = []
@@ -85,8 +86,10 @@ exports.getUAMovies = function (url){
 				if(!titlesArr.includes(totaltitles[i])){
 					titlesArr.push(totaltitles[i])
 					var movie = new Movie();
-					movie.name = totaltitles[i]
-					movie.save()
+					movie.name = totaltitles[i];
+					movie.district = district;
+					movie.brand = brand;
+					movie.save();
 				}
 			}
 		console.log(titlesArr)

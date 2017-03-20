@@ -2,7 +2,10 @@ var mongoose = require('mongoose');
 
 var movieSchema = new mongoose.Schema({
 	
-	name: String
+	name: String,
+	district: String,
+	cinema: String,
+	brand: String
 
 });
 
