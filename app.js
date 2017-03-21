@@ -39,7 +39,6 @@ app.use('/getMovies', movieController);
 
 
 
-
 //	scraper.getMCLCinemas('http://www4.mclcinema.com/MCLWebAPI2/GetCinemaDetails.aspx?l=2')
 			
 //scraper.getUACinemas('http://www.uacinemas.com.hk/eng/main/HomePage')

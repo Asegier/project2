@@ -40,27 +40,30 @@ var populateDropDown = function(error,returnedData){
 
 }
 
-//var findMovies = function (error, returnedData){
-//	if (error) {
-//		console.log(error);
-//	}
+var findMovies = function (error, returnedData){
+	if (error) {
+		console.log(error);
+	}
 //	for(var i = 0; i < returnedData.length; i++){
 //		var 
+//		$(')
 //	}
-//	
-//}
+	console.log("FINDMOVIES IS A SUCCESS!")
+	console.log(returnedData)
+}
 
 $( window ).load(function() {
 	console.log("WINDOW IS LOADING")
 	getData('http://localhost:3000/getMovies','GET',{},populateDropDown);
 });
 
-//$('li').on('click', function (e){
-//	console.log("THIS IS E.TARGET!", e.target.textContent);
-//	name = e.target.textContent;
-//	getData('http://localhost:3000/page/'+name,'GET',{}, findMovies(error, returnedData));
-//
-//})
+$('.list').on('click', function (e){
+	debugger;
+	console.log("THIS IS E.TARGET!", e.target.textContent);
+	name = e.target.textContent;
+	getData('http://localhost:3000/page/'+name,'GET',{}, findMovies);
+
+})
 
 if ( window.addEventListener ) {
 	var kkeys = [], konami = "38,38,40,40,37,39,37,39,66,65";

@@ -1,28 +1,10 @@
 extends layout
 
 block content
-	.row.title
-		.col-md-1
-		.col-md-8.title
-			h3 TITLE
-	.row
-		.col-md-1 
-		.col-md-8.description
-			p Description
-	
-	script(type="text/custom-tpl", id="cinemaTemplate")
-		.row.title
-			.col-md-1
-			.col-md-5.title
-				h3 TITLE
-			.col-md-5.title
-				h3 TITLE
-			.col-md-1
-		.row.movie
-			.col-md-1 
-			.col-md-5.description Description
-			.col-md-5.description Description
-			.col-md-1
-			.cinema
-				h3 {{title}}
-				p {description}
+    h1 #{name}
+    h2 #{brand}
+    h3 #{description}
+    
+    ul
+        each district in districts
+            li= district 
