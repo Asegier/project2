@@ -96,6 +96,6 @@ if ( window.addEventListener ) {
 			}
 			startRoll()
 			kkeys = [];
-		};
+		}
 	}, true);
 }
