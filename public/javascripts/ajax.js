@@ -58,9 +58,8 @@ $( window ).load(function() {
 });
 
 $('.list').on('click', function (e){
-	debugger;
 	console.log("THIS IS E.TARGET!", e.target.textContent);
-	name = e.target.textContent;
+	var name = e.target.textContent;
 	getData('http://localhost:3000/page/'+name,'GET',{}, findMovies);
 
 })
